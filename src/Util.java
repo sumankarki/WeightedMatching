@@ -51,9 +51,22 @@ public class Util {
 				y=Integer.parseInt(values[1]);
 				w=Integer.parseInt(values[2]);
 				
-				adjMat[x][y] = w;
+				adjMat[x-1][y-1] = w;  //Reducing one because the node index in array starts from 0
 			}
 		}
+		br.close();
+		fis.close();
+	}
+	
+	public static boolean isDegreeAtLeastOne(int[][] adjMat, int size, int vertex) {
+		
+		for(int i=0; i<size; i++) {
+			if(adjMat[i][vertex] > 0)
+				return true;
+			if(adjMat[vertex][i] > 0)
+				return true;
+		}
+		return false;
 	}
 
 }

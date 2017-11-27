@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * 
  */
@@ -10,8 +12,9 @@ public class MainClass {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		String fileName;
 		if(args.length > 1)
