@@ -14,24 +14,34 @@ public class PathGrowing {
         }
         Collections.shuffle(vertices);		
 		
-        int vertexCounter = 0;
-		while(Util.isAllEdgeWefightZero(adjMat, size)) {
+        int vertexCounter = -1, set=1;
+		while(Util.isAllEdgeWeightZero(adjMat, size)) {
+			
+			vertexCounter++;
 			
 			//Choose an edge arbitrarily
 			int vertex = vertices.get(vertexCounter);
 			if(!Util.isDegreeAtLeastOne(adjMat, size, vertex)) {
-				vertexCounter++;
 				continue;
 			}
 			
-			//Find the edge with maximum weight that is incident to x
-			MaxWeightedEdge maxEdge = Util.findMaximumWeightedEdge(adjMat, size);
-			if(maxEdge != null && maxEdge.weight > 0){
-				//Remove all the incident edge 
-				Util.removeAllEdgeAlongTheIndex(adjMat, size, maxEdge.indexX);
-				Util.removeAllEdgeAlongTheIndex(adjMat, size, maxEdge.indexY);
+			while(Util.hasNeighbor(adjMat, size, vertex)){
+				
+				//Find the heaviest edge incident on vertex chosen randomly
+				MaxWeightedEdge heaviestEdge = Util.findHeviestEdgeForVertex(adjMat, size, vertex);
+				if(set == 1)
+					M1.add(heaviestEdge);
+				else
+					M2.add(heaviestEdge);
+				set=3-set;
+				
+				//Removing vertex from the graph. i.e., removing all the edge that touches the vertex
+				Util.removeAllEdgeAlongTheIndex(adjMat, size, vertex);
+				
+				vertex = (heaviestEdge.indexX == vertex)? heaviestEdge.indexY : heaviestEdge.indexX;
 			}
 		}
+		
 		int maxSum1 = 0;
 		for(MaxWeightedEdge edge : M1){
 			maxSum1 += edge.weight;

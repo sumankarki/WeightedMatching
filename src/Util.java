@@ -20,6 +20,23 @@ public class Util {
 		return new MaxWeightedEdge(x, y, w);
 	}
 	
+	public static MaxWeightedEdge findHeviestEdgeForVertex(int[][] adjMat, int size, int vertex){
+		int x=0, y=0, w=0;
+		for(int i=0; i<size; i++){			
+			if(adjMat[i][vertex] > w){
+				x=i;
+				y=vertex;
+				w=adjMat[i][vertex];
+			}
+			if(adjMat[vertex][i] > w){
+				x=vertex;
+				y=i;
+				w=adjMat[vertex][i];
+			}
+		}
+		return new MaxWeightedEdge(x, y, w);
+	}
+	
 	public static void removeAllEdgeAlongTheIndex(int[][] adjMat, int size, int vertex){
 		for(int i=0; i<size; i++){
 			adjMat[vertex][i] = 0;
@@ -27,7 +44,7 @@ public class Util {
 		}
 	}
 	
-	public static boolean isAllEdgeWefightZero(int[][] adjMat, int size){
+	public static boolean isAllEdgeWeightZero(int[][] adjMat, int size){
 		for(int i=0; i<size; i++) {
 			for(int j=0; j<size; j++) {
 				if(adjMat[i][j] > 0){
@@ -36,6 +53,19 @@ public class Util {
 			}
 		}		
 		return true;
+	}
+	
+	public static boolean hasNeighbor(int[][] adjMat, int size, int vertex){
+		for(int i=0; i<size; i++) {
+			if(adjMat[i][vertex] > 0){
+				return true;
+			}
+			
+			if(adjMat[vertex][i] > 0){
+				return true;
+			}
+		}		
+		return false;
 	}
 	
 	public static void readFromFile(int[][] adjMat, String fileName) throws IOException{
