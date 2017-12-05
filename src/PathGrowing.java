@@ -3,24 +3,30 @@ import java.util.Collections;
 
 public class PathGrowing {
 	
-	public static int performPathGrouwing(int[][] adjMat, int size){
+	public static int performPathGrowing(int[][] adjMat, int size){
 		ArrayList<MaxWeightedEdge> M1 = new ArrayList<MaxWeightedEdge>();
 		ArrayList<MaxWeightedEdge> M2 = new ArrayList<MaxWeightedEdge>();
 		
 		//For random pick of vertex later
 		ArrayList<Integer> vertices = new ArrayList<Integer>();
-        for (int i=1; i<11; i++) {
+        for (int i=0; i<size; i++) {
         	vertices.add(i);
+        	//System.out.printf(i+" ");
         }
         Collections.shuffle(vertices);		
-		
+        /*System.out.println();
+        for (int i=0; i<size; i++) {
+        	System.out.printf( vertices.get(i)+" ");
+        }
+        System.out.println();*/
         int vertexCounter = -1, set=1;
-		while(Util.isAllEdgeWeightZero(adjMat, size)) {
+		while(!Util.isAllEdgeWeightZero(adjMat, size)) {
 			
 			vertexCounter++;
 			
 			//Choose an edge arbitrarily
 			int vertex = vertices.get(vertexCounter);
+			System.out.println(vertex);
 			if(!Util.isDegreeAtLeastOne(adjMat, size, vertex)) {
 				continue;
 			}

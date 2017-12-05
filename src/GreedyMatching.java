@@ -6,7 +6,7 @@ public class GreedyMatching {
 	public static int performGreedyMatching(int[][] adjMat, int size){
 		ArrayList<MaxWeightedEdge> M = new ArrayList<MaxWeightedEdge>();
 		
-		while(Util.isAllEdgeWeightZero(adjMat, size)) {
+		while(!Util.isAllEdgeWeightZero(adjMat, size)) {
 			MaxWeightedEdge maxEdge = Util.findMaximumWeightedEdge(adjMat, size);
 			if(maxEdge != null && maxEdge.weight > 0){
 				//Add the edge to the result

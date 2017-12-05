@@ -1,7 +1,12 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Random;
 
 
 public class Util {
@@ -75,13 +80,12 @@ public class Util {
 		String line = null;		
 		while ((line = br.readLine()) != null) {
 			int x=0, y=0, w=0;
-			String[] values = line.split(",");
+			String[] values = line.split(" ");
 			if(values.length == 3){
 				x=Integer.parseInt(values[0]);
 				y=Integer.parseInt(values[1]);
-				w=Integer.parseInt(values[2]);
-				
-				adjMat[x-1][y-1] = w;  //Reducing one because the node index in array starts from 0
+				w=(int) Float.parseFloat(values[2]);
+				adjMat[x][y] = w;  
 			}
 		}
 		br.close();
@@ -97,6 +101,46 @@ public class Util {
 				return true;
 		}
 		return false;
+	}
+	
+	public static int[][] createGraph(int nodes){
+		Random rand = new Random(Integer.MAX_VALUE);
+		int[][] adjMat = new int[nodes][nodes];
+		//while(nodes <= 1000) {
+			
+			/*String fileName = "graph-"+nodes+".txt";		
+			File fout = new File(fileName);
+			FileOutputStream fos = new FileOutputStream(fout);	 
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));*/
+			
+			for(int i=0; i < nodes; i++){
+				for(int j=i+1; j < nodes; j++){
+					if(i==j)
+						continue;
+					int weight = Math.abs(rand.nextInt()%100);
+					adjMat[i][j] = weight;
+					/*bw.write(""+i+"\t"+j+"\t"+weight);
+					bw.newLine();*/
+				}
+			}
+			//nodes += 200;
+			
+			//bw.close();
+		//}
+			
+		return adjMat;
+	}
+	
+	public static int[][] copyValues(int[][] adjMat, int size){
+		int[][] newAdjMat = new int[size][size];
+		
+		for(int i=0; i<size; i++){
+			for(int j=0; j<size; j++){
+				newAdjMat[i][j] = adjMat[i][j];
+			}
+		}
+		
+		return newAdjMat;
 	}
 
 }
